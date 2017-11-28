@@ -10,6 +10,17 @@ namespace _28_11_2017_lekcja_1
 {
     public class mathematics_test
     {
+        [Theory]
+        [InlineData(10, 20, 30)]
+        public void theoryexample(double x, double y, double expected)
+        {
+            // arrange
+            var math = new Mathematics();
+            // act
+            double result = math.Add(x, y);
+            // assert
+            Assert.Equal(expected, result);
+        }
         [Fact]
         public void Add_returns_sum_of_given_values()
         {
