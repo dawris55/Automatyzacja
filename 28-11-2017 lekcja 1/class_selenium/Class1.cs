@@ -4,9 +4,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support;
+using OpenQA.Selenium.Firefox;
 using Xunit;
 using System.Linq;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace SeleniumTests
 {
@@ -15,6 +17,10 @@ namespace SeleniumTests
         private const string SearchTextBoxId = "lst-ib";
         private const string CodeSprintersPageTitle = "Code Sprinters -";
         private const string TextToSearch = "Dlaczego Code Sprinters";
+        private const string ButtonToFind = "Poznaj nasze podejście";
+        private const string CookieClicker = "Akceptuję";
+        private const string Stopka = "Automatyzacja testów Java";
+        private const string Cel = "WIEDZA NA PIERWSZYM MIEJSCU";
         private IWebDriver driver;
         private StringBuilder verificationErrors;
         private string baseURL;
@@ -34,27 +40,43 @@ namespace SeleniumTests
         {
             GoToGoogle();
             Search();
-
             OpenSearchResultByPageTitle(CodeSprintersPageTitle);
 
-            Assert.Equal("Code Sprinters -", driver.Title);
-            var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
+            Assert.Equal(CodeSprintersPageTitle, driver.Title);
+            IWebElement element = LookingForButton();
 
             Assert.NotNull(element);
-            var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
-            Assert.Single(elements);
+            Assert.Single(GetElements(ButtonToFind));
+            GettingRidOfCookies(CookieClicker);
+            WaitForInvisible(CookieClicker);
 
-            driver.FindElement(By.LinkText("Akceptuję")).Click();
+            OpenSearchResultByPageTitle(ButtonToFind);
+            
 
+            WaitForClickable(By.LinkText(Stopka), 11);
+            Assert.Contains(Cel, driver.PageSource);
+            
+        }
+
+        private void WaitForInvisible(string linktext)
+        {
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(11));
-            wait.Until(ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję"), "Akceptuję"));
+            wait.Until(ExpectedConditions.InvisibilityOfElementWithText(By.LinkText(linktext), linktext));
+        }
 
-            driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
+        private ReadOnlyCollection<IWebElement> GetElements(string linktext)
+        {
+            return driver.FindElements(By.LinkText(linktext));
+        }
 
-            WaitForClickable(By.LinkText("Automatyzacja testów Java"), 11);
-            Assert.Contains("WIEDZA NA PIERWSZYM MIEJSCU", driver.PageSource);
-            Assert.Single(driver.FindElements(By.TagName("h2"))
-                .Where(tag => tag.Text == "WIEDZA NA PIERWSZYM MIEJSCU"));
+        private void GettingRidOfCookies(string linktext)
+        {
+            driver.FindElement(By.LinkText(linktext)).Click();
+        }
+
+        private IWebElement LookingForButton()
+        {
+            return driver.FindElement(By.LinkText(ButtonToFind));
         }
 
         private void Search()
