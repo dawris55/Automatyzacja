@@ -39,12 +39,12 @@ namespace SeleniumTests
             var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
             Assert.Single(elements);
             driver.FindElement(By.LinkText("Akceptuję")).Click();
-            Thread.Sleep(3000);
-            WaitForClickable(By.LinkText("Poznaj nasze podejście"), 7);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(11));
+            wait.Until(ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję"), "Akceptuję"));
             driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
             //WaitForElementPresent(IWebElement.Equals ("WIEDZIA NA PIERWSZYM MIEJSCU"), 5);
-            Thread.Sleep(3000);
-            WaitForClickable(By.LinkText("Automatyzacja testów Java"), 7);
+            //Thread.Sleep(3000);
+            WaitForClickable(By.LinkText("Automatyzacja testów Java"), 11);
             Assert.Contains("WIEDZA NA PIERWSZYM MIEJSCU", driver.PageSource);
             Assert.Single(driver.FindElements(By.TagName("h2"))
                 .Where(tag => tag.Text == "WIEDZA NA PIERWSZYM MIEJSCU")); 
