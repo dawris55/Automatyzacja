@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "28-11-2017 lekcja 1", "28-11-2017 lekcja 1\28-11-2017 lekcja 1.csproj", "{7F141EC4-A941-43DC-BBAA-6FC5C42B1A34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "class_selenium", "class_selenium\class_selenium.csproj", "{D123E8E3-7803-4033-87DD-4F2CB25FBB2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7F141EC4-A941-43DC-BBAA-6FC5C42B1A34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F141EC4-A941-43DC-BBAA-6FC5C42B1A34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F141EC4-A941-43DC-BBAA-6FC5C42B1A34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D123E8E3-7803-4033-87DD-4F2CB25FBB2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D123E8E3-7803-4033-87DD-4F2CB25FBB2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D123E8E3-7803-4033-87DD-4F2CB25FBB2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D123E8E3-7803-4033-87DD-4F2CB25FBB2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
