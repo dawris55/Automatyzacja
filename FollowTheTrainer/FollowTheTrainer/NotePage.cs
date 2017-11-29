@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 namespace FollowTheTrainer
 {
@@ -17,6 +18,8 @@ namespace FollowTheTrainer
 
             var nameLabel = Browser.FindByXpath("//label[@for='author'");
             nameLabel.First().Click();
+
+            Thread.Sleep(500);
 
             var name = Browser.FindElementById("autor");
             name.Click();
