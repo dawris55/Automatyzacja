@@ -12,6 +12,9 @@ namespace SeleniumTests
 {
     public class Example : IDisposable
     {
+        private const string SearchTextBoxId = "lst-ib";
+        private const string CodeSprintersPageTitle = "Code Sprinters -";
+        private const string TextToSearch = "Dlaczego Code Sprinters";
         private IWebDriver driver;
         private StringBuilder verificationErrors;
         private string baseURL;
@@ -19,6 +22,7 @@ namespace SeleniumTests
 
         public Example()
         {
+            
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             baseURL = "https://www.google.pl/";
@@ -28,27 +32,53 @@ namespace SeleniumTests
         [Fact]
         public void TheExampleTest()
         {
-            driver.Navigate().GoToUrl(baseURL /*+ "/?gfe_rd=cr&dcr=0&ei=4FsdWtrJL8mv8wei1rjgAw"*/);
-            driver.FindElement(By.Id("lst-ib")).Clear();
-            driver.FindElement(By.Id("lst-ib")).SendKeys("Dlaczego Code Sprinters");
-            driver.FindElement(By.Id("lst-ib")).Submit();
-            driver.FindElement(By.LinkText("Code Sprinters -")).Click();         
+            GoToGoogle();
+            Search();
+
+            OpenSearchResultByPageTitle(CodeSprintersPageTitle);
+
             Assert.Equal("Code Sprinters -", driver.Title);
             var element = driver.FindElement(By.LinkText("Poznaj nasze podejście"));
+
             Assert.NotNull(element);
             var elements = driver.FindElements(By.LinkText("Poznaj nasze podejście"));
             Assert.Single(elements);
+
             driver.FindElement(By.LinkText("Akceptuję")).Click();
+
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(11));
             wait.Until(ExpectedConditions.InvisibilityOfElementWithText(By.LinkText("Akceptuję"), "Akceptuję"));
+
             driver.FindElement(By.LinkText("Poznaj nasze podejście")).Click();
-            //WaitForElementPresent(IWebElement.Equals ("WIEDZIA NA PIERWSZYM MIEJSCU"), 5);
-            //Thread.Sleep(3000);
+
             WaitForClickable(By.LinkText("Automatyzacja testów Java"), 11);
             Assert.Contains("WIEDZA NA PIERWSZYM MIEJSCU", driver.PageSource);
             Assert.Single(driver.FindElements(By.TagName("h2"))
-                .Where(tag => tag.Text == "WIEDZA NA PIERWSZYM MIEJSCU")); 
+                .Where(tag => tag.Text == "WIEDZA NA PIERWSZYM MIEJSCU"));
         }
+
+        private void Search()
+        {
+            IWebElement searchbox = GetSearchBox();
+            searchbox.Clear();
+            searchbox.SendKeys(TextToSearch);
+            searchbox.Submit();
+        }
+
+        private void OpenSearchResultByPageTitle(string title)
+        {
+            driver.FindElement(By.LinkText(title)).Click();
+        }
+        private IWebElement GetSearchBox()
+        {
+            return driver.FindElement(By.Id(SearchTextBoxId));
+        }
+
+        private void GoToGoogle()
+        {
+            driver.Navigate().GoToUrl(baseURL);
+        }
+
         private bool IsElementPresent(By by)
         {
             try
