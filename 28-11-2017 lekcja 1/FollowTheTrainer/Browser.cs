@@ -25,10 +25,17 @@ namespace FollowTheTrainer
                 .Timeouts()
                 .ImplicitWait = TimeSpan.FromMilliseconds(500);
         }
-        /*internal static void WaitForInvisible(By by)
+
+        internal static string ReturnPageSource()
         {
-            new WebDriverException(driver, TimeSpan.FromMilliseconds(double ))
-        }*/
+            string pagesource = driver.PageSource;
+            return pagesource;
+        }
+
+        /*internal static void WaitForInvisible(By by)
+{
+   new WebDriverException(driver, TimeSpan.FromMilliseconds(double ))
+}*/
         internal static ReadOnlyCollection<IWebElement> FindByXpath(string xpath)
         {
             return driver.FindElements(By.XPath(xpath));

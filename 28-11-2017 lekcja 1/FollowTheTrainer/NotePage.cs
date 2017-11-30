@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading;
+using Xunit;
 
 namespace FollowTheTrainer
 {
@@ -26,6 +27,13 @@ namespace FollowTheTrainer
             var submit = Browser.FindElementById("comment-submit");
             submit.Click();
            
+        }
+        public static void AssertCommentText(Comment comment)
+
+        {
+
+            Assert.Contains(comment.Text, Browser.ReturnPageSource());
+
         }
     }
 }

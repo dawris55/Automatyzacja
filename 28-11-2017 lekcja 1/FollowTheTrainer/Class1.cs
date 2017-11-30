@@ -9,18 +9,17 @@ namespace FollowTheTrainer
         {
             [Fact]
             public void CanAddCommentToTheBlogNote()
-            {
-                Guid obj = Guid.NewGuid();
+            {                
                 MainPage.Open();
                 MainPage.OpenFirstNote();
-                NotePage.AddComment(new Comment
+                var koment = new Comment
                 {
-                    Text = "Lorem ipsum dolor sit",
-                    Mail = obj + "@test.com",
-                    User = "białko"
-                });
-                    
-            
+                    Text = Guid.NewGuid().ToString(),
+                    Mail = "test@test.com",
+                    User = "Jednak nie guid"
+                };
+                NotePage.AddComment(koment);
+                Assert.Contains(koment.Text, Browser.ReturnPageSource());                            
 
                 // dodaj komentarz
                 // sprawdz ze komentarz sie dodal
