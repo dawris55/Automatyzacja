@@ -10,13 +10,13 @@ namespace FollowTheTrainer
             [Fact]
             public void CanAddCommentToTheBlogNote()
             {
-
+                Guid obj = Guid.NewGuid();
                 MainPage.Open();
                 MainPage.OpenFirstNote();
                 NotePage.AddComment(new Comment
                 {
                     Text = "Lorem ipsum dolor sit",
-                    Mail = "test@test.com",
+                    Mail = obj + "@test.com",
                     User = "białko"
                 });
                     

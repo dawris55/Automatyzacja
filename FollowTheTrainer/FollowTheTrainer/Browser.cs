@@ -1,5 +1,5 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
 using System;
 using System.Collections.ObjectModel;
 
@@ -17,7 +17,7 @@ namespace FollowTheTrainer
         
         static Browser()
         {
-            driver = new ChromeDriver();
+            driver = new FirefoxDriver();
             driver.Manage()
                 .Window
                 .Maximize();

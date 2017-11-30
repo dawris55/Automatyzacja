@@ -16,13 +16,11 @@ namespace FollowTheTrainer
             email.Click();
             email.SendKeys(TestData.Mail);
 
-            var nameLabel = Browser.FindByXpath("//label[@for='author'");
+            var nameLabel = Browser.FindByXpath("//label[@for='author']");
             nameLabel.First().Click();
 
-            Thread.Sleep(500);
-
-            var name = Browser.FindElementById("autor");
-            name.Click();
+           
+            var name = Browser.FindElementById("author");
             name.SendKeys(TestData.User);
 
             var submit = Browser.FindElementById("comment-submit");
